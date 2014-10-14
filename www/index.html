@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Open PRs for Encore-UI</title>
+
+    <!-- Resist the urge to include 'user-scalable=no' below. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+
+    <link rel="stylesheet" href="main.css">
+
+    <link rel="icon" href="assets/img/ico/favicon.png">
+    <!--[if IE]>
+    <link rel="shortcut icon" href="assets/img/ico/favicon.ico">
+    <![endif]-->
+</head>
+
+<body ng-app="prApp">
+
+<div class="site-container" ng-controller="MainCtrl">
+    <ul>
+        <li ng-repeat="repoPRs in prs" ng-hide="repoPRs.length == 0" class="repo-prs">
+            <h1 class="repo-name"><a href="{{ repoPRs[0].head.repo.html_url }}/pulls">Pull Requests for {{ repoPRs[0].head.repo.name }}</a></h1>
+            <ul>
+                <li ng-repeat="pr in repoPRs" class="pr flex-container">
+                    <h2 class="pr-title flex-item"><a href="{{ pr.html_url }}">{{ pr.title }}</a></h2>
+                    <p class="pr-updated flex-item" ng-class="timeSinceUpdate(pr.updated_at)">Last updated {{ daysAgo(pr.updated_at) }}</p>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<!-- Page-specific JavaScript Functions (rename as needed) -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+<script src="moment.min.js"></script>
+<script src="prs.json"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
